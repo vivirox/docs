@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "linden",
+  "theme": "willow",
   "name": "Gradiant Ascent Documentation",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373"
+    "primary": "#4D7C0F",
+    "light": "#84CC16",
+    "dark": "#3F6212"
   },
   "favicon": "/favicon.svg",
   "navigation": {

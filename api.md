@@ -42,7 +42,7 @@ auth.signOut({ }) => void
 messages.send({ content: string, recipientId: string }) => MessageId
 
 // Get messages for a conversation
-messages.list({ conversationId: string, paginationOpts?: PaginationOpts }) 
+messages.list({ conversationId: string, paginationOpts?: PaginationOpts })
   => PaginatedResult<Message>
 
 // Mark messages as read
@@ -53,9 +53,9 @@ messages.markAsRead({ messageIds: string[] }) => void
 
 ```typescript
 // Get security events with optional filtering
-security.getSecurityEvents({ 
-  type?: string, 
-  severity?: 'critical' | 'high' | 'medium' | 'low' 
+security.getSecurityEvents({
+  type?: string,
+  severity?: 'critical' | 'high' | 'medium' | 'low'
 }) => SecurityEvent[]
 
 // Get security event statistics
@@ -69,10 +69,10 @@ security.getEventStats({ }) => SecurityStats
 users.getProfile({ userId: string }) => UserProfile
 
 // Update user profile
-users.updateProfile({ 
-  name?: string, 
-  bio?: string, 
-  avatarUrl?: string 
+users.updateProfile({
+  name?: string,
+  bio?: string,
+  avatarUrl?: string
 }) => UserProfile
 
 // Search for users
@@ -177,7 +177,7 @@ Example usage:
 
 ```typescript
 // First page
-const firstPage = await convex.query(api.messages.list, { 
+const firstPage = await convex.query(api.messages.list, {
   conversationId: "123",
   paginationOpts: { numItems: 20, cursor: null }
 });
@@ -219,11 +219,11 @@ React components can use the provided hooks to interact with the API:
 
 ```jsx
 import { useQuery, useMutation } from "convex/react";
-import { api } from "../convex/_generated/api";
+import { api } from "../convex/generated/api";
 
 function MessagesComponent({ conversationId }) {
   // Query messages
-  const messages = useQuery(api.messages.list, { 
+  const messages = useQuery(api.messages.list, {
     conversationId,
     paginationOpts: { numItems: 20, cursor: null }
   });
@@ -253,10 +253,10 @@ Astro components can fetch data during server-side rendering:
 ```astro
 ---
 import { getConvexClient } from '@/lib/convex';
-import { api } from '@/convex/_generated/api';
+import { api } from '@/convex/generated/api';
 
 const client = await getConvexClient();
-const messages = await client.query(api.messages.list, { 
+const messages = await client.query(api.messages.list, {
   conversationId: "123",
   paginationOpts: { numItems: 20, cursor: null }
 });

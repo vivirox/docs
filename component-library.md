@@ -20,6 +20,14 @@ This documentation provides an overview of our Astro component library, includin
   - [SecurityDashboard](#securitydashboard)
 - [Utility Components](#utility-components)
   - [ErrorBoundary](#errorboundary)
+- [Authentication Components](#authentication-components)
+  - [LoginForm](#loginform)
+  - [ResetPasswordForm](#resetpasswordform)
+  - [PasswordResetRequestForm](#passwordresetrequestform)
+  - [RegisterForm](#registerform)
+  - [AuthCard](#authcard)
+- [Transition Components](#transition-components)
+  - [PageTransitions](#pagetransitions)
 
 ## Layout Components
 
@@ -302,20 +310,19 @@ import Alert from '@/components/ui/Alert.astro';
 
 ### Button
 
-Interactive button component with multiple variants.
+A versatile button component that supports different variants and sizes.
 
 **File:** `src/components/ui/Button.astro`
 
 **Props:**
 
 ```typescript
-interface Props {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
-  disabled?: boolean;
+interface Props extends HTMLAttributes<'button'> {
+  href?: string;
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
   loading?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-  class?: string;
+  loadingText?: string;
 }
 ```
 
@@ -326,27 +333,33 @@ interface Props {
 import Button from '@/components/ui/Button.astro';
 ---
 
-<Button variant="primary" size="md">
-  Click Me
-</Button>
+<!-- As a button -->
+<Button>Click Me</Button>
 
-<Button variant="outline" disabled={true}>
-  Disabled Button
-</Button>
+<!-- As a link -->
+<Button href="/dashboard">Go to Dashboard</Button>
 
-<Button variant="danger" loading={true}>
-  Delete
+<!-- With variants -->
+<Button variant="outline" size="lg">Large Outline Button</Button>
+
+<!-- Loading state -->
+<Button loading loadingText="Saving...">Save</Button>
+
+<!-- Icon button with accessibility -->
+<Button size="icon" aria-label="Close dialog">
+  <svg><!-- Icon SVG --></svg>
 </Button>
 ```
 
 **Features:**
 
-- Multiple variants for different visual styles
-- Three size options
-- Loading state with spinner
-- Disabled state
-- Accessible focus states
-- Custom class support for additional styling
+- Multiple variants for different use cases
+- Size options including icon-only buttons
+- Loading state with spinner animation
+- Automatic rendering as button or anchor based on href prop
+- Accessibility checks for icon-only buttons
+- CSS customization through class props
+- Consistent styling with design system
 
 ### ThemeToggle
 
@@ -408,9 +421,9 @@ import Link from '@/components/base/Link.astro';
 
 <Link href="/about">About Us</Link>
 
-<Link 
-  href="https://example.com" 
-  external={true} 
+<Link
+  href="https://example.com"
+  external={true}
   enableNewTabWarning={true}
 >
   External Link
@@ -523,6 +536,230 @@ import ErrorBoundary from '@/components/base/ErrorBoundary.astro';
 - Prevents the entire page from crashing
 - Logs errors to the console
 - Support for custom fallback content
+
+## Authentication Components
+
+Authentication components handle user login, registration, and password management.
+
+### LoginForm
+
+A React component for user authentication.
+
+**File:** `src/components/auth/LoginForm.tsx`
+
+**Props:**
+
+```typescript
+interface LoginFormProps {
+  redirectTo?: string;
+  showSignup?: boolean;
+  showResetPassword?: boolean;
+}
+```
+
+**Usage:**
+
+```tsx
+import { LoginForm } from '@/components/auth/LoginForm';
+
+<LoginForm
+  redirectTo="/dashboard"
+  showSignup={true}
+  showResetPassword={true}
+/>
+```
+
+**Features:**
+
+- Email and password validation
+- "Remember me" functionality using localStorage
+- CSRF protection with token generation
+- Password reset functionality
+- Error handling with toast notifications
+- Loading states with visual feedback
+- OAuth provider integration (Google)
+- Responsive design optimized for mobile
+- Cross-browser compatibility including iOS fixes
+
+### ResetPasswordForm
+
+A React component for changing passwords after reset.
+
+**File:** `src/components/auth/ResetPasswordForm.tsx`
+
+**Props:**
+
+```typescript
+interface ResetPasswordFormProps {
+  redirectTo?: string;
+}
+```
+
+**Usage:**
+
+```tsx
+import { ResetPasswordForm } from '@/components/auth/ResetPasswordForm';
+
+<ResetPasswordForm redirectTo="/login" />
+```
+
+**Features:**
+
+- Password validation with strength checks
+- Matching password confirmation
+- Toast notifications for feedback
+- Loading indicators during submission
+- Error handling with user-friendly messages
+- Responsive layout optimized for mobile
+
+### PasswordResetRequestForm
+
+A React component for requesting password reset emails.
+
+**File:** `src/components/auth/PasswordResetRequestForm.tsx`
+
+**Props:**
+
+```typescript
+interface PasswordResetRequestFormProps {
+  redirectTo?: string;
+  onSuccess?: () => void;
+}
+```
+
+**Usage:**
+
+```tsx
+import { PasswordResetRequestForm } from '@/components/auth/PasswordResetRequestForm';
+
+<PasswordResetRequestForm
+  redirectTo="/login"
+  onSuccess={() => console.log('Reset email sent')}
+/>
+```
+
+**Features:**
+
+- Email validation
+- Success state tracking
+- Toast notifications for feedback
+- Loading indicators during submission
+- Error handling with user-friendly messages
+
+### RegisterForm
+
+A React component for new user registration.
+
+**File:** `src/components/auth/RegisterForm.tsx`
+
+**Props:**
+
+```typescript
+interface RegisterFormProps {
+  redirectTo?: string;
+}
+```
+
+**Usage:**
+
+```tsx
+import { RegisterForm } from '@/components/auth/RegisterForm';
+
+<RegisterForm redirectTo="/dashboard" />
+```
+
+**Features:**
+
+- Comprehensive form validation
+- Password strength requirements
+- Terms and conditions agreement
+- Toast notifications for feedback
+- Loading indicators during registration
+- Error handling with specific messages
+- OAuth registration options
+
+### AuthCard
+
+An Astro component that provides a styled card container for authentication forms.
+
+**File:** `src/components/auth/AuthCard.astro`
+
+**Props:**
+
+```typescript
+interface Props {
+  title?: string;
+  subtitle?: string;
+  class?: string;
+}
+```
+
+**Usage:**
+
+```astro
+---
+import AuthCard from '@/components/auth/AuthCard.astro';
+---
+
+<AuthCard
+  title="Welcome Back"
+  subtitle="Enter your credentials to access your account"
+>
+  <div>Form content goes here</div>
+</AuthCard>
+```
+
+**Features:**
+
+- Consistent styling across authentication forms
+- Proper spacing and layout
+- Responsive design that fits on screen without scrolling
+- Dark theme styling with black background
+- Subtle animations on appearance
+
+## Transition Components
+
+Components that handle page transitions and animations.
+
+### PageTransitions
+
+An Astro component that creates smooth transitions between pages using Astro's View Transitions API.
+
+**File:** `src/components/transitions/PageTransitions.astro`
+
+**Props:**
+
+```typescript
+interface Props {
+  mode?: 'default' | 'fade' | 'slide' | 'slide-up' | 'slide-down' | 'zoom';
+  duration?: number;
+}
+```
+
+**Usage:**
+
+```astro
+---
+import PageTransitions from '@/components/transitions/PageTransitions.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="My Page">
+  <PageTransitions mode="slide" duration={400}>
+    <div>Page content here</div>
+  </PageTransitions>
+</BaseLayout>
+```
+
+**Features:**
+
+- Multiple transition animations (fade, slide, zoom)
+- Customizable duration
+- Dark mode support
+- Individual element transitions with named view transitions
+- Browser compatibility handling
+- Smooth animations with proper timing functions
+- Event handling for transition completion
 
 ## Best Practices
 

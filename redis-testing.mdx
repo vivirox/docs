@@ -63,24 +63,25 @@ non-functional requirements.
    # Install dependencies
    pnpm install
 
-   ## Start Redis server
+## Start Redis server
 
-   docker run -d -p 6379:6379 redis:latest
+docker run -d -p 6379:6379 redis:latest
 
-   ## Set environment variables
+## Set environment variables
 
-   REDIS_URL=redis://localhost:6379
-   REDIS_KEY_PREFIX=test:
-   ```
+REDIS_URL=redis://localhost:6379
+REDIS_KEY_PREFIX=test:
+
+````
 </Steps>
 
 2. Run Test Suites
-   ```bash
-   # Run all tests
-   pnpm test:redis:all
+```bash
+# Run all tests
+pnpm test:redis:all
 
-   # Run specific test suites
-   pnpm test:redis:unit
+# Run specific test suites
+pnpm test:redis:unit
 pnpm test:redis:integration
 pnpm test:redis:perf
 
@@ -96,7 +97,7 @@ pnpm test:redis:watch
    # Open coverage report
    open coverage/lcov-report/index.html
    ```
-</Steps>
+   </Steps>
 
 ## Test Configuration
 

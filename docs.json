@@ -15,18 +15,11 @@
         "groups": [
           {
             "group": "Introduction",
-            "pages": [
-              "introduction",
-              "quickstart",
-              "project-status"
-            ]
+            "pages": ["introduction", "quickstart", "project-status"]
           },
           {
             "group": "Setup",
-            "pages": [
-              "development",
-              "development-setup"
-            ]
+            "pages": ["development", "development-setup"]
           },
           {
             "group": "Essentials",
@@ -46,27 +39,18 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": [
-              "architecture",
-              "infrastructure",
-              "documentation-index"
-            ]
+            "pages": ["architecture", "infrastructure", "documentation-index"]
           },
           {
             "group": "Core Systems",
-            "pages": [
-              "architecture/ai-system",
-              "component-library"
-            ]
+            "pages": ["architecture/ai-system", "component-library"]
           },
           {
             "group": "Technical Diagrams",
             "pages": [
               {
                 "group": "Design Decisions",
-                "pages": [
-                  "architecture/decisions/index"
-                ]
+                "pages": ["architecture/decisions/index"]
               }
             ]
           }
@@ -88,10 +72,7 @@
             "pages": [
               {
                 "group": "Authentication",
-                "pages": [
-                  "server-auth",
-                  "auth-types"
-                ]
+                "pages": ["server-auth", "auth-types"]
               },
               {
                 "group": "Data Storage",
@@ -103,11 +84,7 @@
               },
               {
                 "group": "Notifications",
-                "pages": [
-                  "notification-service",
-                  "email-service",
-                  "websocket"
-                ]
+                "pages": ["notification-service", "email-service", "websocket"]
               }
             ]
           },
@@ -124,10 +101,7 @@
               },
               {
                 "group": "AI & ML",
-                "pages": [
-                  "text-analysis",
-                  "advanced-systems/machine-learning"
-                ]
+                "pages": ["text-analysis", "advanced-systems/machine-learning"]
               }
             ]
           }
@@ -138,10 +112,7 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": [
-              "testing/overview",
-              "testing/best-practices"
-            ]
+            "pages": ["testing/overview", "testing/best-practices"]
           },
           {
             "group": "Test Types",
@@ -164,10 +135,7 @@
           },
           {
             "group": "Test Patterns",
-            "pages": [
-              "testing/patterns",
-              "testing/integration-test-plan"
-            ]
+            "pages": ["testing/patterns", "testing/integration-test-plan"]
           }
         ]
       },
@@ -176,18 +144,11 @@
         "groups": [
           {
             "group": "Deployment",
-            "pages": [
-              "deployment",
-              "devops",
-              "vercel-push"
-            ]
+            "pages": ["deployment", "devops", "vercel-push"]
           },
           {
             "group": "Monitoring",
-            "pages": [
-              "health-check",
-              "rum-documentation"
-            ]
+            "pages": ["health-check", "rum-documentation"]
           },
           {
             "group": "Migration & Maintenance",
@@ -212,10 +173,7 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": [
-              "SECURITY",
-              "security-implementation"
-            ]
+            "pages": ["SECURITY", "security-implementation"]
           },
           {
             "group": "Security Protocols",
@@ -227,11 +185,7 @@
           },
           {
             "group": "Compliance",
-            "pages": [
-              "compliance/gdpr",
-              "compliance/hipaa",
-              "compliance/soc2"
-            ]
+            "pages": ["compliance/gdpr", "compliance/hipaa", "compliance/soc2"]
           },
           {
             "group": "Security Analysis",
@@ -248,10 +202,7 @@
         "groups": [
           {
             "group": "Third-Party Services",
-            "pages": [
-              "providers",
-              "integrations/convex"
-            ]
+            "pages": ["providers", "integrations/convex"]
           },
           {
             "group": "API Integrations",
@@ -276,10 +227,7 @@
         "groups": [
           {
             "group": "Overview",
-            "pages": [
-              "api-reference/introduction",
-              "api"
-            ]
+            "pages": ["api-reference/introduction", "api"]
           },
           {
             "group": "Core Endpoints",

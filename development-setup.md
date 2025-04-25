@@ -20,7 +20,7 @@ cd gradiant
 1. Install dependencies:
 
 ```bash
-pnpm install
+pnpm install --frozen-lockfile
 ```
 
 1. Setup your environment variables:

@@ -101,7 +101,7 @@ The following secrets need to be configured in GitHub:
 2. Install dependencies
 
    ```sh
-   pnpm install
+   pnpm install --frozen-lockfile
    ```
 
 3. Run development server
@@ -293,7 +293,7 @@ The following secrets need to be configured in GitHub:
 2. Install dependencies
 
    ```sh
-   pnpm install
+   pnpm install --frozen-lockfile
    ```
 
 3. Run development server

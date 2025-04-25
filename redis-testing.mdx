@@ -61,7 +61,7 @@ non-functional requirements.
 1. Setup Environment
    ```bash
    # Install dependencies
-   pnpm install
+   pnpm install --frozen-lockfile
 
 ## Start Redis server
 
@@ -232,7 +232,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Run tests
         run: pnpm test:redis:all

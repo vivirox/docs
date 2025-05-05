@@ -102,7 +102,7 @@ interface Appointment {
 **Example:**
 ```typescript
 const appointment = await api.appointments.schedule({
-  patientId: '123456',
+  patientId: "example-patient-id",
   providerId: 'dr-smith',
   startTime: new Date('2024-04-01T09:00:00Z'),
   endTime: new Date('2024-04-01T10:00:00Z'),
@@ -163,7 +163,7 @@ interface Logger {
 **Example:**
 ```typescript
 api.logger.info('Processing patient data', {
-  patientId: '123456',
+  patientId: "example-patient-id",
   action: 'update'
 })
 
@@ -193,7 +193,7 @@ api.events.on('appointment:created', (appointment) => {
 // Emit events
 api.events.emit('custom:event', {
   type: 'reminder',
-  patientId: '123456'
+  patientId: "example-patient-id"
 })
 ```
 
@@ -261,7 +261,7 @@ Update the plugin's configuration.
 **Example:**
 ```typescript
 const updatedConfig = await api.config.update({
-  apiKey: 'new-api-key',
+  apiKey: "YOUR_API_KEY_HERE",
   webhookUrl: 'https://example.com/webhook'
 })
 ```

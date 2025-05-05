@@ -46,7 +46,7 @@ Always use environment variables for sensitive values:
 
 ```typescript
 // ❌ Bad - hardcoded credentials
-const clientId = "abc123456";
+const clientId = "example-client-id";
 
 // ✅ Good - environment variables with fallback for development
 const clientId = process.env.CLIENT_ID || "example-client-id";
@@ -58,7 +58,7 @@ When showing code examples in documentation:
 
 ```mdx
 // ❌ Bad - realistic-looking credentials
-ANTHROPIC_API_KEY=sk_ant_12345abcdef67890
+ANTHROPIC_API_KEY=YOUR_API_KEY_HERE
 
 // ✅ Good - obvious placeholder
 ANTHROPIC_API_KEY=YOUR_API_KEY_HERE
@@ -102,7 +102,7 @@ The following environment variables should be defined in your `.env` file (and a
 
 ```
 # API Keys
-API_KEY=your_api_key_here
+API_KEY=YOUR_API_KEY_HERE
 
 # OAuth Credentials
 CLIENT_ID=your_client_id_here

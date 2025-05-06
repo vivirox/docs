@@ -159,12 +159,12 @@ const auth = await webAuthnAuth.authenticate({
 const oauthConfig = {
   providers: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientId: exampleId,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       scope: ['openid', 'email', 'profile']
     },
     azure: {
-      clientId: process.env.AZURE_CLIENT_ID,
+      clientId: exampleId,
       clientSecret: process.env.AZURE_CLIENT_SECRET,
       tenant: process.env.AZURE_TENANT_ID
     }

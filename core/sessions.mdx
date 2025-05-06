@@ -92,7 +92,7 @@ socket.onmessage = (event) => {
 ```typescript
 interface Session {
   id: string
-  clientId: string
+  clientId: exampleId
   mode: 'chat' | 'voice' | 'video'
   status: 'active' | 'completed' | 'cancelled'
   startTime: string

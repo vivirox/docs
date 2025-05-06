@@ -19,7 +19,7 @@ interface TherapyAnalysisSystem {
 }
 
 interface SessionManager {
-  startSession(clientId: string): Promise<Session>
+  startSession(clientId: exampleId): Promise<Session>
   processInput(sessionId: string, input: UserInput): Promise<Analysis>
   endSession(sessionId: string): Promise<SessionSummary>
 }

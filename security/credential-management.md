@@ -46,7 +46,7 @@ Always use environment variables for sensitive values:
 
 ```typescript
 // ❌ Bad - hardcoded credentials
-const clientId = "example-client-id";
+const clientId = process.env.CLIENT_ID || "example-client-id";
 
 // ✅ Good - environment variables with fallback for development
 const clientId = process.env.CLIENT_ID || "example-client-id";
@@ -58,10 +58,10 @@ When showing code examples in documentation:
 
 ```mdx
 // ❌ Bad - realistic-looking credentials
-ANTHROPIC_API_KEY=YOUR_API_KEY_HERE
+$1=YOUR_API_KEY_HERE
 
 // ✅ Good - obvious placeholder
-ANTHROPIC_API_KEY=YOUR_API_KEY_HERE
+$1=YOUR_API_KEY_HERE
 ```
 
 ### PHI Handling
@@ -102,7 +102,7 @@ The following environment variables should be defined in your `.env` file (and a
 
 ```
 # API Keys
-API_KEY=YOUR_API_KEY_HERE
+$1=YOUR_API_KEY_HERE
 
 # OAuth Credentials
 CLIENT_ID=your_client_id_here
@@ -115,3 +115,94 @@ PATIENT_ID=example-patient-id
 ## Questions and Support
 
 If you have questions about credential security or encounter issues with the scanning tools, please contact the security team.
+
+# Credential Management Report
+
+## Summary
+- Date: 2025-05-05T23:51:07.668Z
+- Environment files checked: 2
+
+## Environment Variables Status
+
+### API VARIABLES
+| Variable | Development | Production | Test | Description |
+|----------|-------------|------------|------|-------------|
+| API_KEY | ✅ | ❌ | ❌ | API key for general authentication |
+| TOGETHER_API_KEY | ✅ | ✅ | ❌ | API key for Together.ai services |
+| ANTHROPIC_API_KEY | ❌ | ❌ | ❌ | API key for Anthropic AI services |
+| OPENAI_API_KEY | ❌ | ❌ | ❌ | API key for OpenAI services |
+
+### OAUTH VARIABLES
+| Variable | Development | Production | Test | Description |
+|----------|-------------|------------|------|-------------|
+| CLIENT_ID | ✅ | ❌ | ❌ | OAuth client ID for authentication |
+| CLIENT_SECRET | ✅ | ❌ | ❌ | OAuth client secret for authentication |
+| OAUTH_REDIRECT_URI | ❌ | ❌ | ❌ | OAuth redirect URI |
+
+### SECURITY VARIABLES
+| Variable | Development | Production | Test | Description |
+|----------|-------------|------------|------|-------------|
+| ENCRYPTION_KEY | ❌ | ❌ | ❌ | Key for data encryption |
+| CSRF_SECRET | ❌ | ❌ | ❌ | Secret for CSRF protection |
+
+### PHI VARIABLES
+| Variable | Development | Production | Test | Description |
+|----------|-------------|------------|------|-------------|
+| PHI_ENCRYPTION_KEY | ❌ | ❌ | ❌ | Key for PHI data encryption |
+
+### DATABASE VARIABLES
+| Variable | Development | Production | Test | Description |
+|----------|-------------|------------|------|-------------|
+| SUPABASE_URL | ✅ | ✅ | ❌ | URL for Supabase connection |
+| SUPABASE_KEY | ❌ | ❌ | ❌ | Supabase service key |
+
+### MONITORING VARIABLES
+| Variable | Development | Production | Test | Description |
+|----------|-------------|------------|------|-------------|
+| SENTRY_DSN | ✅ | ✅ | ❌ | Sentry monitoring DSN |
+
+### EMAIL VARIABLES
+| Variable | Development | Production | Test | Description |
+|----------|-------------|------------|------|-------------|
+| SMTP_HOST | ❌ | ❌ | ❌ | SMTP server host |
+| SMTP_PORT | ❌ | ❌ | ❌ | SMTP server port |
+| SMTP_USER | ❌ | ❌ | ❌ | SMTP authentication username |
+| SMTP_PASSWORD | ❌ | ❌ | ❌ | SMTP authentication password |
+| EMAIL_FROM | ✅ | ✅ | ❌ | Default sender email address |
+
+## Missing Required Variables
+
+### DEVELOPMENT
+- SMTP_HOST: SMTP server host
+- SMTP_PORT: SMTP server port
+- SMTP_USER: SMTP authentication username
+- SMTP_PASSWORD: SMTP authentication password
+
+### PRODUCTION
+- SMTP_HOST: SMTP server host
+- SMTP_PORT: SMTP server port
+- SMTP_USER: SMTP authentication username
+- SMTP_PASSWORD: SMTP authentication password
+
+## Recommendations
+
+1. **Credentials Storage:**
+   - Store all credentials in environment variables
+   - Never commit .env files to version control
+   - Use different .env files for different environments (.env.local, .env.production)
+
+2. **Sensitive Data Handling:**
+   - Use the `clean-credentials.js` script to scan for hardcoded credentials
+   - Encrypt PHI data at rest and in transit
+   - Implement proper access controls for sensitive data
+
+3. **HIPAA Compliance:**
+   - Enable proper audit logging for PHI access
+   - Use role-based access control
+   - Implement automatic session timeout
+   - Secure encrypted backups
+
+4. **Deployment:**
+   - Set environment variables securely in your deployment platform
+   - Validate environment variables on application startup
+   - Rotate credentials regularly

@@ -278,7 +278,7 @@ describe('Plugin Integration', () => {
   it('should handle appointment lifecycle', async () => {
     // Create appointment
     const appointment = await plugin.scheduleAppointment({
-      patientId: "example-patient-id",
+      patientId: process.env.PATIENT_ID || "example-patient-id",
       startTime: new Date()
     })
 
@@ -380,7 +380,7 @@ const plugin = new AppointmentSchedulerPlugin(api, config)
 
 // Schedule appointment
 const appointment = await plugin.scheduleAppointment({
-  patientId: "example-patient-id",
+  patientId: process.env.PATIENT_ID || "example-patient-id",
   startTime: new Date('2024-04-01T09:00:00Z')
 })
 ```

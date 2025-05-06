@@ -140,7 +140,7 @@ await auditService.log({
   userId: 'user-123',
   details: {
     method: 'appointments.schedule',
-    params: { patientId: "example-patient-id", time: '2024-04-01T09:00:00Z' },
+    params: { patientId: process.env.PATIENT_ID || "example-patient-id", time: '2024-04-01T09:00:00Z' },
     result: 'success'
   }
 })

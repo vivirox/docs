@@ -44,7 +44,7 @@ This index provides a comprehensive overview of all documentation resources avai
 - [Security Implementation](./security-implementation.md) - Security features and implementation
 - [Server Authentication](./server-auth.md) - Server authentication documentation
 - [Authentication Types](./auth-types.md) - Authentication type definitions
-- [SECURITY.md](../SECURITY.md) - Security policies and practices
+- [SECURITY.md](security/security-policy.md) - Security policies and practices
 
 ## Analysis & Optimization
 

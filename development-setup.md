@@ -1,6 +1,6 @@
 # Development Environment Setup
 
-This document provides detailed instructions for setting up your development environment for the Gradiant Ascent project.
+This document provides detailed instructions for setting up your development environment for the Pixelated Empathy project.
 
 ## Prerequisites
 

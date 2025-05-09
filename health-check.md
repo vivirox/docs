@@ -1,6 +1,6 @@
 # Website Health Check Documentation
 
-This document explains the automated health check system that monitors the Gradiant Ascent application.
+This document explains the automated health check system that monitors the Pixelated Empathy application.
 
 ## Overview
 

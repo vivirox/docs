@@ -1,10 +1,10 @@
 # Credential and PHI Management Guide
 
-This document outlines best practices for handling credentials and Protected Health Information (PHI) in the Gradiant Ascent codebase.
+This document outlines best practices for handling credentials and Protected Health Information (PHI) in the Pixelated Empathy codebase.
 
 ## Overview
 
-As a healthcare application, Gradiant Ascent must maintain stringent security standards, particularly regarding:
+As a healthcare application, Pixelated Empathy must maintain stringent security standards, particularly regarding:
 
 1. **Credentials**: API keys, client IDs, secrets, tokens
 2. **Protected Health Information (PHI)**: Patient identifiers, medical record numbers, etc.

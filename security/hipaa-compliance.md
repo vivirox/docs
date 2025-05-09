@@ -1,10 +1,10 @@
 # HIPAA Security Compliance Guide
 
-This document outlines the HIPAA security compliance standards and automated checks for the Gradiant Ascent codebase.
+This document outlines the HIPAA security compliance standards and automated checks for the Pixelated Empathy codebase.
 
 ## Overview
 
-As a healthcare application handling Protected Health Information (PHI), Gradiant Ascent must adhere to HIPAA security standards, particularly those related to:
+As a healthcare application handling Protected Health Information (PHI), Pixelated Empathy must adhere to HIPAA security standards, particularly those related to:
 
 1. **Technical Safeguards**: Implementation of security measures to protect electronic PHI
 2. **Access Controls**: Mechanisms to ensure appropriate access to PHI

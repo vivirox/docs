@@ -74,10 +74,10 @@ The script fixes several patterns:
 2. **OAuth Client IDs**:
    ```typescript
    // Before
-   clientId: process.env.CLIENT_ID || "example-client-id"
+   clientId: exampleId || "example-client-id"
 
    // After
-   clientId: process.env.CLIENT_ID || "example-client-id"
+   clientId: exampleId || "example-client-id"
    ```
 
 3. **OAuth Client Secrets**:
@@ -131,7 +131,7 @@ The script handles test files differently - instead of using environment variabl
 
 ```typescript
 // In test files
-clientId: process.env.CLIENT_ID || "example-client-id"
+clientId: exampleId || "example-client-id"
 clientSecret: process.env.CLIENT_SECRET || "example-client-secret"
 patientId: process.env.PATIENT_ID || "example-patient-id"
 ```

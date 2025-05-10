@@ -298,12 +298,12 @@
         },
         {
           "anchor": "Project Status",
-          "href": "https://gradiantascent.com/project-status",
+          "href": "https://pixelatedempathy.com/project-status",
           "icon": "chart-line"
         },
         {
           "anchor": "Roadmap",
-          "href": "https://gradiantascent.com/roadmap",
+          "href": "https://pixelatedempathy.com/roadmap",
           "icon": "map"
         }
       ]
@@ -317,13 +317,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:support@gradiantascent.com"
+        "href": "mailto:support@pixelatedempathy.com"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://gradiantascent.com/dashboard"
+      "href": "https://pixelatedempathy.com/dashboard"
     }
   },
   "footer": {

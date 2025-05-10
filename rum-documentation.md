@@ -61,7 +61,7 @@ RUM configuration is defined in `src/lib/monitoring/config.ts`. The key settings
 ```typescript
 const defaultConfig: MonitoringConfig = {
   grafana: {
-    url: process.env.GRAFANA_URL || 'https://grafana.gradiantascent.com',
+    url: process.env.GRAFANA_URL || 'https://grafana.pixelatedempathy.com',
     apiKey: process.env.GRAFANA_API_KEY || '',
     orgId: process.env.GRAFANA_ORG_ID || '',
     enableRUM: true,

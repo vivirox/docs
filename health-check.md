@@ -11,8 +11,8 @@ The health check system regularly checks the main website and API endpoints to e
 1. A GitHub Actions workflow runs every 15 minutes (configurable in `.github/workflows/health-check.yml`)
 2. The workflow executes the `health-check.sh` script
 3. The script checks:
-   - The main website endpoint (`https://app.gradiantascent.com`)
-   - The API health endpoint (`https://app.gradiantascent.com/api/health`)
+   - The main website endpoint (`https://app.pixelatedempathy.com`)
+   - The API health endpoint (`https://app.pixelatedempathy.com/api/health`)
 4. If either check fails, a GitHub issue is created and assigned to the repository owner
 
 ## Troubleshooting Common Issues
@@ -73,7 +73,7 @@ Edit the following environment variables in `.github/workflows/health-check.yml`
 
 ```yaml
 env:
-  APP_URL: https://app.gradiantascent.com
+  APP_URL: https://app.pixelatedempathy.com
   API_PATH: /api/health
 ```
 

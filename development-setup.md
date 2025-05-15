@@ -5,7 +5,7 @@ This document provides detailed instructions for setting up your development env
 ## Prerequisites
 
 - **Node.js:** v18.x or later (v22.x recommended)
-- **Package Manager:** pnpm 10.10.0+ (required)
+- **Package Manager:** pnpm 10.11.0+ (required)
 - **Git:** Latest version
 
 ## Initial Setup

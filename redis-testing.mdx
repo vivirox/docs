@@ -63,37 +63,40 @@ non-functional requirements.
    # Install dependencies
    pnpm install --frozen-lockfile
 
-   # Start Redis server
-   docker run -d -p 6379:6379 redis:latest
+# Start Redis server
 
-   # Set environment variables
-   REDIS_URL=redis://localhost:6379
-   REDIS_KEY_PREFIX="test:"
-   ```
+docker run -d -p 6379:6379 redis:latest
+
+# Set environment variables
+
+REDIS_URL=redis://localhost:6379
+REDIS_KEY_PREFIX="test:"
+
+````
 
 2. Run Test Suites
-   ```bash
-   # Run all tests
-   pnpm test:redis:all
+```bash
+# Run all tests
+pnpm test:redis:all
 
-   # Run specific test suites
-   pnpm test:redis:unit
-   pnpm test:redis:integration
-   pnpm test:redis:perf
+# Run specific test suites
+pnpm test:redis:unit
+pnpm test:redis:integration
+pnpm test:redis:perf
 
-   # Generate coverage report
-   pnpm test:redis:coverage
+# Generate coverage report
+pnpm test:redis:coverage
 
-   # Watch mode for development
-   pnpm test:redis:watch
-   ```
+# Watch mode for development
+pnpm test:redis:watch
+````
 
 3. View Results
    ```bash
    # Open coverage report
    open coverage/lcov-report/index.html
    ```
-</Steps>
+   </Steps>
 
 ## Test Configuration
 
@@ -234,7 +237,7 @@ jobs:
         run: pnpm test:redis:all
         env:
           REDIS_URL: redis://localhost:6379
-          REDIS_KEY_PREFIX: "test:"
+          REDIS_KEY_PREFIX: 'test:'
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3

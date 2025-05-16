@@ -22,7 +22,7 @@ interface EventMessage {
   }
 }
 
-type EventType = 
+type EventType =
   | 'emotion.detected'
   | 'pattern.identified'
   | 'analysis.updated'
@@ -31,7 +31,7 @@ type EventType =
   | 'session.milestone'
   | 'annotation.added'
 
-type EventSource = 
+type EventSource =
   | 'emotion-analyzer'
   | 'pattern-detector'
   | 'recommendation-engine'
@@ -56,7 +56,10 @@ class RealTimeUpdateService {
     // Establish secure connection
   }
 
-  subscribe(channels: string[], callback: (event: EventMessage) => void): Subscription {
+  subscribe(
+    channels: string[],
+    callback: (event: EventMessage) => void,
+  ): Subscription {
     // Subscribe to specific event channels
   }
 
@@ -73,11 +76,13 @@ class RealTimeUpdateService {
 ### 1. Transport Mechanisms
 
 - **WebSocket Pipeline**
+
   - Secure WebSocket connections (WSS)
   - Binary message protocol for efficiency
   - Heartbeat mechanism for connection health
 
 - **Server-Sent Events Fallback**
+
   - Fallback for environments with WebSocket limitations
   - Long-polling last resort for maximum compatibility
   - Graceful transport switching
@@ -97,7 +102,7 @@ function useRealTimeUpdates(
     bufferSize?: number
     debounceMs?: number
     processImmediately?: string[]
-  }
+  },
 ): {
   events: EventMessage[]
   lastEvent: EventMessage | null
@@ -109,6 +114,7 @@ function useRealTimeUpdates(
 ```
 
 - **State Management Integration**
+
   - Seamless integration with React/Vue state
   - Optimistic UI updates
   - Conflict resolution strategy
@@ -201,47 +207,48 @@ const realTimeClient = new RealTimeClient({
   reconnectStrategy: {
     initialDelayMs: 100,
     maxDelayMs: 5000,
-    factor: 1.5
-  }
-});
+    factor: 1.5,
+  },
+})
 
-realTimeClient.connect(authToken)
+realTimeClient
+  .connect(authToken)
   .then(() => console.log('Connected to real-time updates'))
-  .catch(err => console.error('Connection failed:', err));
+  .catch((err) => console.error('Connection failed:', err))
 
 const subscription = realTimeClient.subscribe(
   ['emotion.detected', 'pattern.identified'],
   (event) => {
-    console.log('Received event:', event);
-    updateUI(event);
-  }
-);
+    console.log('Received event:', event)
+    updateUI(event)
+  },
+)
 
 // Later cleanup
-subscription.unsubscribe();
+subscription.unsubscribe()
 ```
 
 ### React Component Integration
 
 ```tsx
 function EmotionalAnalysisViewer({ sessionId }) {
-  const { events, connected } = useRealTimeUpdates([
-    `session.${sessionId}.emotion`,
-    `session.${sessionId}.pattern`
-  ], {
-    debounceMs: 250,
-    processImmediately: ['risk.flagged']
-  });
+  const { events, connected } = useRealTimeUpdates(
+    [`session.${sessionId}.emotion`, `session.${sessionId}.pattern`],
+    {
+      debounceMs: 250,
+      processImmediately: ['risk.flagged'],
+    },
+  )
 
   // Component implementation with real-time updates
   return (
     <div className="analysis-viewer">
       {!connected && <ConnectionStatus status="reconnecting" />}
-      {events.map(event => (
+      {events.map((event) => (
         <EventDisplay key={event.id} event={event} />
       ))}
     </div>
-  );
+  )
 }
 ```
 
@@ -273,4 +280,4 @@ function EmotionalAnalysisViewer({ sessionId }) {
 1. Real-Time Web Applications: Architecture and Implementation (2024)
 2. WebSocket Security Best Practices in Healthcare Applications (2024)
 3. Scaling WebSocket Connections for High-Traffic Applications (2023)
-4. Event-Driven Architecture in Clinical Systems (2023) 
+4. Event-Driven Architecture in Clinical Systems (2023)

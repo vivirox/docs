@@ -19,7 +19,7 @@ interface CachingLayer {
   encryptionEnabled: boolean
 }
 
-type CacheLayerType = 
+type CacheLayerType =
   | 'memory'
   | 'localStorage'
   | 'indexedDB'
@@ -72,24 +72,30 @@ function generateCacheKey(params: {
   version?: string
 }): string {
   // Generate deterministic cache key from parameters
-  const baseKey = `session:${params.sessionId}:${params.dataType}`;
-  const filterString = params.filters ? `:${JSON.stringify(params.filters)}` : '';
-  const timeString = params.timeRange ? `:${params.timeRange[0].getTime()}-${params.timeRange[1].getTime()}` : '';
-  const versionString = params.version ? `:v${params.version}` : '';
-  
-  return `${baseKey}${filterString}${timeString}${versionString}`;
+  const baseKey = `session:${params.sessionId}:${params.dataType}`
+  const filterString = params.filters
+    ? `:${JSON.stringify(params.filters)}`
+    : ''
+  const timeString = params.timeRange
+    ? `:${params.timeRange[0].getTime()}-${params.timeRange[1].getTime()}`
+    : ''
+  const versionString = params.version ? `:v${params.version}` : ''
+
+  return `${baseKey}${filterString}${timeString}${versionString}`
 }
 ```
 
 ### 2. Caching Policies
 
 - **Time-Based Policies**
+
   - Short TTL (30s) for volatile session data
   - Medium TTL (5min) for analysis results
   - Long TTL (1h) for historical patterns
   - Custom TTL based on data sensitivity
 
 - **Capacity-Based Policies**
+
   - LRU (Least Recently Used) eviction
   - Priority-based retention
   - Size-aware eviction strategies
@@ -121,6 +127,7 @@ interface AnonymizationRule {
 ```
 
 - **Encryption Strategies**
+
   - End-to-end encryption for sensitive data
   - Field-level encryption for PII
   - Secure key management
@@ -148,7 +155,7 @@ enum CompressionLevel {
   NONE = 0,
   LOW = 1,
   MEDIUM = 2,
-  HIGH = 3
+  HIGH = 3,
 }
 ```
 
@@ -161,6 +168,7 @@ enum CompressionLevel {
 ### 2. Preloading Strategies
 
 - **Predictive Preloading**
+
   - Session navigation prediction
   - Prefetching probable next views
   - Background loading during idle time
@@ -189,24 +197,24 @@ enum CompressionLevel {
 class CacheIntegratedRealTimeSystem {
   constructor(
     private cacheManager: SessionDataCacheManager,
-    private realTimeService: RealTimeUpdateService
+    private realTimeService: RealTimeUpdateService,
   ) {
-    this.setupListeners();
+    this.setupListeners()
   }
 
   private setupListeners(): void {
     this.realTimeService.subscribe(['session.data.updated'], (event) => {
       // Update cache on real-time events
-      this.updateCacheFromEvent(event);
-    });
+      this.updateCacheFromEvent(event)
+    })
   }
 
   private async updateCacheFromEvent(event: EventMessage): Promise<void> {
-    const { sessionId, dataType } = event.payload;
-    const cacheKey = generateCacheKey({ sessionId, dataType });
-    
+    const { sessionId, dataType } = event.payload
+    const cacheKey = generateCacheKey({ sessionId, dataType })
+
     // Invalidate existing cache or update with new data
-    await this.cacheManager.store(cacheKey, event.payload.data);
+    await this.cacheManager.store(cacheKey, event.payload.data)
   }
 }
 ```
@@ -233,8 +241,24 @@ class CacheIntegratedRealTimeSystem {
 // Initialize cache manager
 const cacheManager = new SessionDataCacheManager({
   layers: [
-    { name: 'memory', priority: 1, capacity: 50, ttl: 300000, securityLevel: 'medium', compressionEnabled: false, encryptionEnabled: false },
-    { name: 'indexedDB', priority: 2, capacity: 200, ttl: 3600000, securityLevel: 'high', compressionEnabled: true, encryptionEnabled: true }
+    {
+      name: 'memory',
+      priority: 1,
+      capacity: 50,
+      ttl: 300000,
+      securityLevel: 'medium',
+      compressionEnabled: false,
+      encryptionEnabled: false,
+    },
+    {
+      name: 'indexedDB',
+      priority: 2,
+      capacity: 200,
+      ttl: 3600000,
+      securityLevel: 'high',
+      compressionEnabled: true,
+      encryptionEnabled: true,
+    },
   ],
   defaultTTL: 600000, // 10 minutes
   securityConfig: {
@@ -242,26 +266,26 @@ const cacheManager = new SessionDataCacheManager({
     sensitiveFields: ['diagnoses', 'medications', 'personalIdentifiers'],
     anonymizationRules: [
       { field: 'clientName', strategy: 'hash' },
-      { field: 'phoneNumber', strategy: 'redact' }
+      { field: 'phoneNumber', strategy: 'redact' },
     ],
     allowedOrigins: ['https://app.example.com'],
-    requireAuth: true
+    requireAuth: true,
   },
   compressionLevel: CompressionLevel.MEDIUM,
-  evictionPolicy: 'lru'
-});
+  evictionPolicy: 'lru',
+})
 
 // Store session data
 await cacheManager.store(
   generateCacheKey({ sessionId: 'session-123', dataType: 'emotionalAnalysis' }),
   analysisResults,
-  { ttl: 900000, priority: 'high' }
-);
+  { ttl: 900000, priority: 'high' },
+)
 
 // Retrieve session data
 const cachedResults = await cacheManager.retrieve(
-  generateCacheKey({ sessionId: 'session-123', dataType: 'emotionalAnalysis' })
-);
+  generateCacheKey({ sessionId: 'session-123', dataType: 'emotionalAnalysis' }),
+)
 ```
 
 ### 2. React Integration
@@ -269,49 +293,49 @@ const cachedResults = await cacheManager.retrieve(
 ```tsx
 // React hook for cached session data
 function useCachedSessionData(sessionId, dataType, options = {}) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
   useEffect(() => {
-    let isMounted = true;
-    const cacheKey = generateCacheKey({ sessionId, dataType });
-    
+    let isMounted = true
+    const cacheKey = generateCacheKey({ sessionId, dataType })
+
     async function fetchData() {
       try {
-        setLoading(true);
+        setLoading(true)
         // Try to get from cache first
-        let result = await cacheManager.retrieve(cacheKey);
-        
+        let result = await cacheManager.retrieve(cacheKey)
+
         // If not in cache, fetch from API and cache it
         if (!result) {
-          result = await fetchFromApi(sessionId, dataType);
-          await cacheManager.store(cacheKey, result, options);
+          result = await fetchFromApi(sessionId, dataType)
+          await cacheManager.store(cacheKey, result, options)
         }
-        
+
         if (isMounted) {
-          setData(result);
-          setError(null);
+          setData(result)
+          setError(null)
         }
       } catch (err) {
         if (isMounted) {
-          setError(err);
+          setError(err)
         }
       } finally {
         if (isMounted) {
-          setLoading(false);
+          setLoading(false)
         }
       }
     }
-    
-    fetchData();
-    
+
+    fetchData()
+
     return () => {
-      isMounted = false;
-    };
-  }, [sessionId, dataType]);
-  
-  return { data, loading, error };
+      isMounted = false
+    }
+  }, [sessionId, dataType])
+
+  return { data, loading, error }
 }
 
 // Component using cached data
@@ -319,15 +343,13 @@ function SessionAnalytics({ sessionId }) {
   const { data, loading, error } = useCachedSessionData(
     sessionId,
     'emotionalAnalysis',
-    { ttl: 300000, priority: 'high' }
-  );
-  
-  if (loading) return <LoadingIndicator />;
-  if (error) return <ErrorDisplay error={error} />;
-  
-  return (
-    <AnalyticsDisplay data={data} />
-  );
+    { ttl: 300000, priority: 'high' },
+  )
+
+  if (loading) return <LoadingIndicator />
+  if (error) return <ErrorDisplay error={error} />
+
+  return <AnalyticsDisplay data={data} />
 }
 ```
 
@@ -359,4 +381,4 @@ function SessionAnalytics({ sessionId }) {
 1. Efficient Caching Strategies for Healthcare Applications (2024)
 2. HIPAA-Compliant Data Caching Patterns (2023)
 3. Performance Optimization in Clinical Information Systems (2023)
-4. Secure Client-Side Storage of Medical Data (2024) 
+4. Secure Client-Side Storage of Medical Data (2024)

@@ -16,10 +16,12 @@ The application implements several layers of security:
 
 <CardGroup cols={2}>
   <Card title="Risk Assessment" icon="shield-check">
-    Four-tier risk level system with configurable thresholds and sensitivity levels
+    Four-tier risk level system with configurable thresholds and sensitivity
+    levels
   </Card>
   <Card title="Alert System" icon="bell-exclamation">
-    Multi-channel notification system for high-risk situations with human oversight
+    Multi-channel notification system for high-risk situations with human
+    oversight
   </Card>
   <Card title="FHE Security" icon="lock-keyhole">
     Fully Homomorphic Encryption for secure data processing with Microsoft SEAL
@@ -49,12 +51,12 @@ The Risk Level Assessment System provides a framework for evaluating and respond
 
 The system uses four risk levels:
 
-| Level | Description | Response |
-|-------|-------------|----------|
-| **Low** | Minimal concern, routine monitoring | Passive monitoring only |
-| **Medium** | Moderate concern, requires attention | Dashboard notification |
-| **High** | Significant concern, requires intervention | Dashboard notification + Human review |
-| **Critical** | Severe concern, requires immediate action | Dashboard notification + Human review + Optional escalation |
+| Level        | Description                                | Response                                                    |
+| ------------ | ------------------------------------------ | ----------------------------------------------------------- |
+| **Low**      | Minimal concern, routine monitoring        | Passive monitoring only                                     |
+| **Medium**   | Moderate concern, requires attention       | Dashboard notification                                      |
+| **High**     | Significant concern, requires intervention | Dashboard notification + Human review                       |
+| **Critical** | Severe concern, requires immediate action  | Dashboard notification + Human review + Optional escalation |
 
 ### Implementation Architecture
 
@@ -109,13 +111,13 @@ const factors: RiskFactor[] = [
   {
     type: 'suicidal_ideation',
     severity: 0.8,
-    confidence: 0.7
+    confidence: 0.7,
   },
   {
     type: 'social_isolation',
     severity: 0.6,
-    confidence: 0.8
-  }
+    confidence: 0.8,
+  },
 ]
 
 // Assess risk level
@@ -168,20 +170,26 @@ The Risk Alert System manages notifications and human oversight for high-risk si
   ### Assessment Processing
   When a risk assessment is processed, the system checks if alerts should be triggered based on risk level and configuration.
 
-  ### Cooldown Check
-  To prevent alert fatigue, the system checks if sufficient time has passed since the last alert for the same user and level.
+### Cooldown Check
 
-  ### Alert Creation
-  If an alert should be sent, the system creates an alert with details such as risk level, factors, and source.
+To prevent alert fatigue, the system checks if sufficient time has passed since the last alert for the same user and level.
 
-  ### Notification
-  The alert is sent through configured channels (dashboard, email, SMS, webhook).
+### Alert Creation
 
-  ### Storage
-  High and critical alerts are stored in the database for human review.
+If an alert should be sent, the system creates an alert with details such as risk level, factors, and source.
 
-  ### Human Review
-  For high and critical alerts, human reviewers examine the alert and determine appropriate actions.
+### Notification
+
+The alert is sent through configured channels (dashboard, email, SMS, webhook).
+
+### Storage
+
+High and critical alerts are stored in the database for human review.
+
+### Human Review
+
+For high and critical alerts, human reviewers examine the alert and determine appropriate actions.
+
 </Steps>
 
 ### Alert Channels
@@ -198,6 +206,7 @@ The Risk Alert System manages notifications and human oversight for high-risk si
     - Review status
 
     Dashboard alerts support direct interaction for reviewing and resolving issues.
+
   </Accordion>
 
   <Accordion title="Email Alerts">
@@ -210,6 +219,7 @@ The Risk Alert System manages notifications and human oversight for high-risk si
     - Recommended actions
 
     Email templates are customizable and comply with security requirements.
+
   </Accordion>
 
   <Accordion title="SMS Alerts">
@@ -220,6 +230,7 @@ The Risk Alert System manages notifications and human oversight for high-risk si
     - Instruction to check dashboard
 
     SMS alerts are typically used only for critical situations requiring immediate attention.
+
   </Accordion>
 
   <Accordion title="Webhook Alerts">
@@ -231,6 +242,7 @@ The Risk Alert System manages notifications and human oversight for high-risk si
     - Secure signature for verification
 
     Webhooks require proper authentication and use HTTPS.
+
   </Accordion>
 </AccordionGroup>
 
@@ -267,13 +279,14 @@ The system provides API methods for handling alerts:
 ```typescript
 // Process a risk assessment and trigger alerts if necessary
 await riskAlertSystem.processAssessment(
-  assessment,  // Risk assessment result
-  userId,      // User ID
+  assessment, // Risk assessment result
+  userId, // User ID
   'chat-message', // Source of the assessment
-  {             // Additional metadata
+  {
+    // Additional metadata
     messageId: '123456',
-    sessionId: '789012'
-  }
+    sessionId: '789012',
+  },
 )
 
 // Retrieve pending alerts for human review
@@ -342,13 +355,16 @@ The Risk Assessment System integrates with the Crisis Detection system to identi
 
 <CardGroup cols={3}>
   <Card title="High Risk Patterns" color="#ff4d4f">
-    Suicidal ideation, self-harm, violence, abuse, severe depression, psychosis, substance abuse, critical anxiety
+    Suicidal ideation, self-harm, violence, abuse, severe depression, psychosis,
+    substance abuse, critical anxiety
   </Card>
   <Card title="Medium Risk Patterns" color="#faad14">
-    Moderate depression, anxiety, social isolation, significant stress, grief, sleep disturbance, eating disorder
+    Moderate depression, anxiety, social isolation, significant stress, grief,
+    sleep disturbance, eating disorder
   </Card>
   <Card title="Monitoring Patterns" color="#52c41a">
-    Mild distress, life transitions, relationship issues, work stress, financial concerns
+    Mild distress, life transitions, relationship issues, work stress, financial
+    concerns
   </Card>
 </CardGroup>
 
@@ -387,11 +403,11 @@ riskLevelAssessment.configure({
     low: 0.25,
     medium: 0.5,
     high: 0.7,
-    critical: 0.85
+    critical: 0.85,
   },
 
   // Set minimum confidence level for valid factors
-  minConfidence: 0.6
+  minConfidence: 0.6,
 })
 ```
 
@@ -410,33 +426,33 @@ riskAlertSystem.configure({
     low: {
       notify: false,
       requireHumanReview: false,
-      escalate: false
+      escalate: false,
     },
     medium: {
       notify: true,
       requireHumanReview: false,
-      escalate: false
+      escalate: false,
     },
     high: {
       notify: true,
       requireHumanReview: true,
-      escalate: false
+      escalate: false,
     },
     critical: {
       notify: true,
       requireHumanReview: true,
-      escalate: true
-    }
+      escalate: true,
+    },
   },
 
   // Set recipients for notifications
   recipients: {
     email: ['clinical.team@example.com'],
-    sms: ['+1234567890']
+    sms: ['+1234567890'],
   },
 
   // Set cooldown period (in milliseconds)
-  cooldownPeriod: 1800000 // 30 minutes
+  cooldownPeriod: 1800000, // 30 minutes
 })
 ```
 

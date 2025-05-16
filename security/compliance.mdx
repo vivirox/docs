@@ -46,16 +46,19 @@ focus on HIPAA compliance and data protection regulations.
 Gradiant implements comprehensive automated tools for HIPAA compliance verification:
 
 - **HIPAA Security Check Script**: Automated codebase scanning for security vulnerabilities
+
   - Located at `scripts/hipaa-security-check.js`
   - Checks for deprecated crypto methods, proper encryption, authentication tags, route authentication, and PHI audit logging
   - Integrated into CI/CD pipeline for continuous compliance verification
 
 - **Security Scanning Workflow**: GitHub Actions workflow for comprehensive security scanning
+
   - Located at `.github/workflows/security-scanning.yml`
   - Runs on all pull requests and schedules
   - Generates detailed compliance reports
 
 - **DLP System**: Data Loss Prevention system to protect PHI
+
   - Automated PHI detection and redaction
   - Policy-based controls for data transmission
   - Comprehensive audit logging
@@ -107,45 +110,38 @@ const canAccess = await accessControl.checkAccess({
 
 ### FHE Integration for HIPAA Compliance
 
-<Info>Fully Homomorphic Encryption enhances HIPAA compliance by enabling secure computation on encrypted data</Info>
+<Info>
+  Fully Homomorphic Encryption enhances HIPAA compliance by enabling secure
+  computation on encrypted data
+</Info>
 
 ```typescript
-import { FHEService } from '@gradiant/fhe';
+import { FHEService } from '@gradiant/fhe'
 
 // Initialize FHE service
 const fheService = new FHEService({
   scheme: 'BFV',
   securityLevel: 128,
   polyModulusDegree: 4096,
-});
+})
 
 // Process PHI while it remains encrypted
 async function processEncryptedPatientData(encryptedData) {
   // Perform operations on encrypted data without decryption
-  const result = await fheService.processEncrypted(encryptedData);
-  
+  const result = await fheService.processEncrypted(encryptedData)
+
   // Data remains protected throughout processing
-  return result;
+  return result
 }
 ```
 
 ### Compliance Verification Process
 
 <Steps>
-  ### Automated Scanning
-  Run automated compliance checks (daily in CI/CD)
-  
-  ### Manual Review
-  Quarterly review of all PHI handling systems
-  
-  ### Documentation
-  Update compliance documentation
-  
-  ### Training
-  Staff training and certification
-  
-  ### Third-Party Audit
-  Annual external compliance audit
+  ### Automated Scanning Run automated compliance checks (daily in CI/CD) ###
+  Manual Review Quarterly review of all PHI handling systems ### Documentation
+  Update compliance documentation ### Training Staff training and certification
+  ### Third-Party Audit Annual external compliance audit
 </Steps>
 
 ## Security Standards

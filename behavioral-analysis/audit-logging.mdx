@@ -44,7 +44,7 @@ interface AuditLogEntry {
   securityLabels?: string[]
 }
 
-type ActorType = 
+type ActorType =
   | 'user'
   | 'service'
   | 'system'
@@ -96,12 +96,15 @@ class AuditLoggingService {
 
   async query(
     criteria: LogQueryCriteria,
-    options?: LogQueryOptions
+    options?: LogQueryOptions,
   ): Promise<AuditLogEntry[]> {
     // Query and retrieve audit logs based on search criteria
   }
 
-  async export(format: ExportFormat, criteria: LogQueryCriteria): Promise<Blob> {
+  async export(
+    format: ExportFormat,
+    criteria: LogQueryCriteria,
+  ): Promise<Blob> {
     // Export logs in specified format for compliance reporting
   }
 
@@ -114,12 +117,14 @@ class AuditLoggingService {
 ### 1. Logging Infrastructure
 
 - **Collection Pipeline**
+
   - Distributed log collection
   - Buffering and batching
   - Guaranteed delivery
   - High-throughput ingestion
 
 - **Storage Strategy**
+
   - Append-only storage
   - Immutable records
   - Encryption at rest
@@ -154,12 +159,14 @@ interface RedactionRule {
 ```
 
 - **Immutability Enforcement**
+
   - Cryptographic signatures
   - Blockchain-based verification
   - Sequential integrity checks
   - Digital fingerprinting
 
 - **Access Controls**
+
   - Role-based log access
   - Purpose-justified queries
   - Auditing the auditors
@@ -174,12 +181,14 @@ interface RedactionRule {
 ### 3. Compliance Features
 
 - **HIPAA Compliance**
+
   - Complete access tracking
   - PHI interaction logging
   - Failed login attempts
   - Records of disclosure
 
 - **Regulatory Reporting**
+
   - Automated report generation
   - Evidence compilation
   - Compliance demonstration
@@ -203,9 +212,9 @@ function auditLogMiddleware(options: {
   sensitiveRoutes: string[]
 }) {
   return async (req, res, next) => {
-    const startTime = Date.now();
-    const requestId = generateRequestId();
-    
+    const startTime = Date.now()
+    const requestId = generateRequestId()
+
     // Capture request details
     const requestDetails = {
       method: req.method,
@@ -215,18 +224,18 @@ function auditLogMiddleware(options: {
         type: req.user ? 'user' : 'anonymous',
         identifier: req.user?.username || 'anonymous',
         ipAddress: req.ip,
-        userAgent: req.headers['user-agent']
+        userAgent: req.headers['user-agent'],
       },
       timestamp: new Date(),
-      requestId
-    };
-    
+      requestId,
+    }
+
     // Add response listener
     res.on('finish', async () => {
-      const isSensitive = options.sensitiveRoutes.some(route => 
-        req.originalUrl.includes(route)
-      );
-      
+      const isSensitive = options.sensitiveRoutes.some((route) =>
+        req.originalUrl.includes(route),
+      )
+
       await options.service.log({
         id: generateUniqueId(),
         timestamp: new Date(),
@@ -235,31 +244,32 @@ function auditLogMiddleware(options: {
           type: determineActionType(req.method),
           target: determineTargetType(req.originalUrl),
           targetId: extractTargetId(req.originalUrl, req.params),
-          status: res.statusCode < 400 ? 'success' : 'failure'
+          status: res.statusCode < 400 ? 'success' : 'failure',
         },
         details: {
           accessRoute: requestDetails.url,
           sensitiveDataAccessed: isSensitive,
-          reason: req.body?.reason || req.query?.reason
+          reason: req.body?.reason || req.query?.reason,
         },
         metadata: {
           correlationId: req.headers['x-correlation-id'] || requestId,
           requestId,
           sourceApplication: req.headers['x-source-application'],
           environment: process.env.NODE_ENV as Environment,
-          severity: determineSeverity(res.statusCode, isSensitive)
-        }
-      });
-    });
-    
-    next();
-  };
+          severity: determineSeverity(res.statusCode, isSensitive),
+        },
+      })
+    })
+
+    next()
+  }
 }
 ```
 
 ### 2. AI System Integration
 
 - **AI Activity Logging**
+
   - Model usage tracking
   - Inference decisions
   - Training data access
@@ -274,6 +284,7 @@ function auditLogMiddleware(options: {
 ### 3. External System Integration
 
 - **API Gateway Integration**
+
   - Cross-service tracking
   - Authorization flow logging
   - Rate limit enforcement
@@ -290,6 +301,7 @@ function auditLogMiddleware(options: {
 ### 1. Security Monitoring
 
 - **Anomaly Detection**
+
   - Unusual access patterns
   - Geographical irregularities
   - Time-based anomalies
@@ -304,6 +316,7 @@ function auditLogMiddleware(options: {
 ### 2. Operational Monitoring
 
 - **System Health**
+
   - Log pipeline performance
   - Storage utilization
   - Query performance
@@ -321,35 +334,43 @@ function auditLogMiddleware(options: {
 
 ```typescript
 // Example security analysis function
-async function analyzeSecurityEvents(logService: AuditLoggingService, timeframe: TimeRange) {
+async function analyzeSecurityEvents(
+  logService: AuditLoggingService,
+  timeframe: TimeRange,
+) {
   const failedLogins = await logService.query({
     action: { type: 'login', status: 'failure' },
-    timestamp: { gte: timeframe.start, lte: timeframe.end }
-  });
-  
+    timestamp: { gte: timeframe.start, lte: timeframe.end },
+  })
+
   const sensitiveAccess = await logService.query({
     details: { sensitiveDataAccessed: true },
-    timestamp: { gte: timeframe.start, lte: timeframe.end }
-  });
-  
+    timestamp: { gte: timeframe.start, lte: timeframe.end },
+  })
+
   const offHoursActivity = await logService.query({
     timestamp: { gte: timeframe.start, lte: timeframe.end },
     // Custom condition for off-hours
-    customFilter: (entry) => isOffHours(entry.timestamp)
-  });
-  
+    customFilter: (entry) => isOffHours(entry.timestamp),
+  })
+
   return {
     failedLoginAttempts: groupByActor(failedLogins),
     sensitiveDataAccess: groupByActor(sensitiveAccess),
     offHoursActivity: groupByActor(offHoursActivity),
-    riskScore: calculateRiskScore(failedLogins, sensitiveAccess, offHoursActivity)
-  };
+    riskScore: calculateRiskScore(
+      failedLogins,
+      sensitiveAccess,
+      offHoursActivity,
+    ),
+  }
 }
 ```
 
 ### 2. Usage Analytics
 
 - **Access Patterns**
+
   - Most requested data
   - Peak usage times
   - Session duration analysis
@@ -364,6 +385,7 @@ async function analyzeSecurityEvents(logService: AuditLoggingService, timeframe:
 ### 3. Compliance Reporting
 
 - **Automated Reports**
+
   - Access summaries
   - PHI disclosure tracking
   - Security incident documentation
@@ -387,20 +409,24 @@ const auditLogger = new AuditLoggingService({
     region: 'us-east-1',
     bucketName: 'hipaa-compliant-audit-logs',
     encryption: 'AES-256',
-    retentionPeriod: '7-years'
+    retentionPeriod: '7-years',
   }),
   encryption: new EncryptionService({
     algorithm: 'AES-GCM',
-    keyRotationPeriod: '90-days'
+    keyRotationPeriod: '90-days',
   }),
   retention: {
     defaultPeriod: '7-years',
     legalHoldExtension: 'indefinite',
-    criticalRecords: '10-years'
+    criticalRecords: '10-years',
   },
   alerting: {
     endpoints: ['security@example.com', 'https://alerts.example.com/webhook'],
-    criticalEvents: ['unauthorized-access', 'integrity-violation', 'excessive-failures']
+    criticalEvents: [
+      'unauthorized-access',
+      'integrity-violation',
+      'excessive-failures',
+    ],
   },
   securityConfig: {
     encryptionEnabled: true,
@@ -408,20 +434,25 @@ const auditLogger = new AuditLoggingService({
     signatureVerification: true,
     redactionRules: [
       { target: 'details.changes.oldValue', strategy: 'full' },
-      { target: 'actor.ipAddress', strategy: 'partial', pattern: /(\d+)\.(\d+)\.(\d+)\.(\d+)/, replacement: '$1.$2.XXX.XXX' }
+      {
+        target: 'actor.ipAddress',
+        strategy: 'partial',
+        pattern: /(\d+)\.(\d+)\.(\d+)\.(\d+)/,
+        replacement: '$1.$2.XXX.XXX',
+      },
     ],
     accessControls: [
       { role: 'security-admin', permissions: ['read', 'export'] },
       { role: 'compliance-officer', permissions: ['read', 'export'] },
-      { role: 'system-admin', permissions: ['read'] }
+      { role: 'system-admin', permissions: ['read'] },
     ],
     tamperDetection: {
       enabled: true,
       verificationType: 'blockchain',
-      verificationFrequency: 'hourly'
-    }
-  }
-});
+      verificationFrequency: 'hourly',
+    },
+  },
+})
 
 // Log a session access event
 await auditLogger.log({
@@ -432,29 +463,29 @@ await auditLogger.log({
     type: 'user',
     identifier: 'dr.smith@example.com',
     ipAddress: '192.168.1.1',
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
   },
   action: {
     type: 'read',
     target: 'session',
     targetId: 'session-456',
-    status: 'success'
+    status: 'success',
   },
   details: {
     reason: 'Therapeutic session review',
     accessRoute: '/sessions/456/view',
     sessionId: 'session-456',
-    sensitiveDataAccessed: true
+    sensitiveDataAccessed: true,
   },
   metadata: {
     correlationId: 'req-789',
     requestId: 'req-789',
     sourceApplication: 'therapist-portal',
     environment: 'production',
-    severity: 'info'
+    severity: 'info',
   },
-  securityLabels: ['phi-access', 'clinical-data']
-});
+  securityLabels: ['phi-access', 'clinical-data'],
+})
 ```
 
 ### 2. Compliance Reporting
@@ -463,24 +494,32 @@ await auditLogger.log({
 // Generate HIPAA compliance report
 async function generateComplianceReport(
   logService: AuditLoggingService,
-  timeframe: { start: Date, end: Date },
-  format: 'pdf' | 'csv' | 'json'
+  timeframe: { start: Date; end: Date },
+  format: 'pdf' | 'csv' | 'json',
 ) {
   // Fetch all PHI access events
-  const phiAccessEvents = await logService.query({
-    details: { sensitiveDataAccessed: true },
-    timestamp: { gte: timeframe.start, lte: timeframe.end },
-    securityLabels: { includes: 'phi-access' }
-  }, {
-    limit: 10000,
-    sort: { field: 'timestamp', direction: 'asc' }
-  });
-  
+  const phiAccessEvents = await logService.query(
+    {
+      details: { sensitiveDataAccessed: true },
+      timestamp: { gte: timeframe.start, lte: timeframe.end },
+      securityLabels: { includes: 'phi-access' },
+    },
+    {
+      limit: 10000,
+      sort: { field: 'timestamp', direction: 'asc' },
+    },
+  )
+
   // Analyze access patterns
-  const accessByActor = groupBy(phiAccessEvents, (event) => event.actor.id);
-  const accessByTarget = groupBy(phiAccessEvents, (event) => event.action.target);
-  const failedAccessAttempts = phiAccessEvents.filter(e => e.action.status === 'failure');
-  
+  const accessByActor = groupBy(phiAccessEvents, (event) => event.actor.id)
+  const accessByTarget = groupBy(
+    phiAccessEvents,
+    (event) => event.action.target,
+  )
+  const failedAccessAttempts = phiAccessEvents.filter(
+    (e) => e.action.status === 'failure',
+  )
+
   // Generate report sections
   const reportSections = {
     summary: {
@@ -491,27 +530,27 @@ async function generateComplianceReport(
       timeframe: {
         start: timeframe.start.toISOString(),
         end: timeframe.end.toISOString(),
-        durationDays: daysBetween(timeframe.start, timeframe.end)
-      }
+        durationDays: daysBetween(timeframe.start, timeframe.end),
+      },
     },
     actorAnalysis: Object.entries(accessByActor).map(([actorId, events]) => ({
       actorId,
       identifier: events[0].actor.identifier,
       accessCount: events.length,
-      uniqueTargetsAccessed: new Set(events.map(e => e.action.targetId)).size,
-      mostAccessedTarget: findMostCommon(events.map(e => e.action.targetId))
+      uniqueTargetsAccessed: new Set(events.map((e) => e.action.targetId)).size,
+      mostAccessedTarget: findMostCommon(events.map((e) => e.action.targetId)),
     })),
     highRiskAccess: identifyHighRiskAccess(phiAccessEvents),
     unusualAccess: identifyUnusualAccessPatterns(phiAccessEvents),
-    recommendations: generateSecurityRecommendations(phiAccessEvents)
-  };
-  
+    recommendations: generateSecurityRecommendations(phiAccessEvents),
+  }
+
   // Format and return report
   return logService.export(format, {
     customData: reportSections,
     includeRawEvents: format === 'json',
-    reportTitle: `HIPAA Compliance Report: ${timeframe.start.toLocaleDateString()} to ${timeframe.end.toLocaleDateString()}`
-  });
+    reportTitle: `HIPAA Compliance Report: ${timeframe.start.toLocaleDateString()} to ${timeframe.end.toLocaleDateString()}`,
+  })
 }
 ```
 
@@ -520,12 +559,14 @@ async function generateComplianceReport(
 ### 1. Implementation Guidelines
 
 - **Performance Optimization**
+
   - Asynchronous logging
   - Batched writes
   - Segmented storage
   - Index optimization
 
 - **Reliability**
+
   - Log buffer strategies
   - Retry mechanisms
   - Circuit breaking
@@ -540,12 +581,14 @@ async function generateComplianceReport(
 ### 2. Operational Considerations
 
 - **Retention Management**
+
   - Lifecycle policies
   - Archival strategies
   - Legal hold processes
   - Storage cost optimization
 
 - **Security Practices**
+
   - Regular integrity verification
   - Access review cycles
   - Encryption key rotation
@@ -563,4 +606,7 @@ async function generateComplianceReport(
 2. Immutable Logging for Healthcare Applications (2024)
 3. Audit Trail Security in Clinical Systems (2023)
 4. Behavioral Analysis Compliance Requirements (2024)
-``` 
+
+```
+
+```

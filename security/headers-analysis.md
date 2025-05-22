@@ -1,13 +1,14 @@
 # Security Headers Analysis
 
-## Found Headers (7/7)
-- [x] Strict-Transport-Security
-- [x] X-Content-Type-Options
-- [x] X-Frame-Options
-- [x] X-XSS-Protection
-- [x] Referrer-Policy
-- [x] Permissions-Policy
-- [x] Content-Security-Policy
+## Found Headers (0/7)
 
-## All Required Headers Found
-All security headers required for HIPAA compliance are properly configured.
+## Missing Headers
+- [ ] Strict-Transport-Security
+- [ ] X-Content-Type-Options
+- [ ] X-Frame-Options
+- [ ] X-XSS-Protection
+- [ ] Referrer-Policy
+- [ ] Permissions-Policy
+- [ ] Content-Security-Policy
+
+Please add these headers to your astro.config.mjs file.
